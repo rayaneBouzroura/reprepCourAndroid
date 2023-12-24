@@ -4,15 +4,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignupActivity">
+    android:orientation="vertical"
+    tools:context=".InscriptionActivity"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:layout_gravity="center_vertical"
+    android:gravity="center_vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+<!--    requirements :-->
+<!--    - entrer username-->
+<!--    - entrer password-->
+<!--    - entrer password confirmation-->
+<!--    - bouton inscription-->
+    <EditText
+        android:id="@+id/nomUtilisateurInscription"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:hint="@string/activInscrip_EditText_UsernameHint"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
+        android:padding="12dp">
+    </EditText>
+    <EditText
+        android:id="@+id/motDePasseInscription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/activInscrip_EditText_PwHint"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
+        android:padding="12dp">
+    </EditText>
+    <EditText
+        android:id="@+id/confirmationMotDePasseInscription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/activInscrip_EditText_PwConfHint"
+        android:inputType="textPassword"
+        android:layout_marginBottom="16dp"
+        android:padding="12dp">
+    </EditText>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        >
+        <Button
+            android:id="@+id/btnInscription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/activInscrip_Btn_Inscription"
+            android:layout_marginBottom="32dp"
+            android:layout_marginHorizontal="30dp"
+            android:padding="12dp">
+        </Button>
+
+
+
+
+    </LinearLayout>
+
 
 </LinearLayout>

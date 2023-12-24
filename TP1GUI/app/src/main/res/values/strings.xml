@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">TP1GUI</string>
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
+    <string name="activInscrip_EditText_UsernameHint">entrer un nom d\'utilisateur</string>
+    <string name="activInscrip_EditText_PwHint">entrer un mot de passe</string>
+    <string name="activInscrip_EditText_PwConfHint">confirmer mot de passe</string>
+    <string name="activInscrip_Btn_Inscription">Inscription</string>
+    <string name="Title_InscriptionActivity">Inscription</string>
+    <string name="Title_Inscription">Connection</string>
+    <string name="activConnec_EditTextUsername_Hint">entrer nom d\'utilisateur</string>
+    <string name="activConnec_EditTextPw_Hint">entre le mot de passe</string>
+    <string name="activConnec_BtnConnecText">Connection</string>
+    <string name="activConnec_BtnInscriptionText">Inscription</string>
+    <string name="TaskItem_TaskName">Nom de la tâche</string>
+    <string name="AccueilActivity_Title">Accueil</string>
+    <string name="activInscrip_Btn_Connection">Connection</string>
+    <string name="nav_header_main_placeholder">utilisateur generique</string>
+    <string name="nv_menu_allezActiviteAccueil">Aller a l\'activite d\'accueuil</string>
+    <string name="nv_menu_creerTache">Creer une nouvelle tache</string>
+    <string name="nav_item_deconnexion">Se deconnecter</string>
+    <string name="err_activiteLayout">vous etes deja a la bonne activite\n</string>
 </resources>
