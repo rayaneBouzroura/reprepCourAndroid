@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TP1GUI</string>
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
+    <string name="activInscrip_EditText_UsernameHint">Enter a username</string>
+    <string name="activInscrip_EditText_PwHint">Enter a password</string>
+    <string name="activInscrip_EditText_PwConfHint">Confirm password</string>
+    <string name="activInscrip_Btn_Inscription">Sign Up</string>
+    <string name="Title_InscriptionActivity">Sign Up</string>
+    <string name="Title_Inscription">Login</string> <!-- "Connection" is more commonly "Login" in English -->
+    <string name="activConnec_EditTextUsername_Hint">Enter username</string>
+    <string name="activConnec_EditTextPw_Hint">Enter password</string>
+    <string name="activConnec_BtnConnecText">Login</string>
+    <string name="activConnec_BtnInscriptionText">Sign Up</string>
+    <string name="TaskItem_TaskName">Task Name</string>
+    <string name="AccueilActivity_Title">Home</string>
+    <string name="activInscrip_Btn_Connection">Login</string>
+    <string name="nav_header_main_placeholder">Generic User</string>
+    <string name="nv_menu_allezActiviteAccueil">Go to Home Activity</string>
+    <string name="nv_menu_creerTache">Create a new task</string>
+    <string name="nav_item_deconnexion">Log Out</string>
+    <string name="err_activiteLayout">You are already at the right activity.\n</string>
+    <string name="creationActivity_creerTacheHint">Task name</string>
+    <string name="activiteCreation_btn_text">Add task</string>
+    <string name="activiteConsultation_Btn_UpdateActivite">Update activity</string>
+</resources>

@@ -67,11 +67,20 @@ public static class MyViewHolder extends RecyclerView.ViewHolder {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Log.d("BTN", "JMEFAIT CLICKER SUR LA TACHE :"+tacheCourante.nom);
-//                Intent i = new Intent(holder.itemView.getContext(),ConsultationActivity.class);
-//                i.putExtra("nomTache",tacheCourante.nom);
-//                holder.itemView.getContext().startActivity(i);
-                Toast.makeText(holder.itemView.getContext(), "woohoo", Toast.LENGTH_SHORT).show();
+                //recup current tache and send it to activite consultation
+                Intent intent = new Intent(holder.itemView.getContext(), ConsultationActivity.class);
+                //oft instead of sending the whole object (by implementing some stupid interface to make the object sendable via intent(cringe))
+                //we do the second logical thing and send all the object's data
+                //through the intent dictionary and recreate the object
+                //PROBLEM : pourra pas modifier l'avancement then update it dans le RV etant donner qu'on a pas a persistent collection of taches mais plutot des taches statiques
+                //SOLUTION : ask le prof when le time comes
+                //creation des valeur du dico de la tache
+                intent.putExtra("nom",tacheCourante.nom);
+                intent.putExtra("pourcentage",tacheCourante.pourcentage);
+                intent.putExtra("dateLimite",tacheCourante.dateLimite.toString());
+                intent.putExtra("tempEcoule",formatDuration(tacheCourante.tempEcoule));
+                //go to ze new activity du context present
+                holder.itemView.getContext().startActivity(intent);
             }
         });
     }
@@ -80,13 +89,14 @@ public static class MyViewHolder extends RecyclerView.ViewHolder {
     public int getItemCount() {
         return list.size();
     }
-
+    //cette method takes a long (in milliseconds)
+    // and returns a string representing the duration in days, hours, minutes and seconds
     public static String formatDuration(long elapsedTime) {
         long elapsedSeconds = elapsedTime / 1000;
         long elapsedMinutes = elapsedSeconds / 60;
         long elapsedHours = elapsedMinutes / 60;
         long elapsedDays = elapsedHours / 24;
-
-        return String.format("%d jours %d heurs %d minutes %d seconds", elapsedDays, elapsedHours % 24, elapsedMinutes % 60, elapsedSeconds % 60);
+        return (elapsedDays + " days " + elapsedHours % 24  + " hours " + elapsedMinutes % 60 + " minutes " + elapsedSeconds % 60+ " seconds");
+        //return String.format("%d jours %d heurs %d minutes %d seconds", elapsedDays, elapsedHours % 24, elapsedMinutes % 60, elapsedSeconds % 60);
     }
 }

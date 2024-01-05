@@ -63,8 +63,8 @@ public class AccueilActivity extends AppCompatActivity {
             t.pourcentage = r.nextInt(100);
             //set la date
             t.dateLimite = new Date();
-            //set le statut
-            t.tempEcoule =(long) r.nextInt(100);
+            //set le temps ecoule
+            t.tempEcoule =(long) r.nextInt(1000000000);
             //ajouter la tache a la liste
             adapter.list.add(t);
         }
@@ -110,8 +110,8 @@ public class AccueilActivity extends AppCompatActivity {
                    Toast.makeText(AccueilActivity.this, R.string.err_activiteLayout, Toast.LENGTH_SHORT).show();
               }
               else if (item.getItemId() == NAV_ITEM_CREER_TACHE) {
-                   //Intent i = new Intent(AccueilActivity.this, CreationActivity.class);
-                   //startActivity(i);
+                   Intent i = new Intent(AccueilActivity.this, CreationActivity.class);
+                   startActivity(i);
                }
                else if (item.getItemId() == NAV_ITEM_DECONNEXION) {
                    Intent i2 = new Intent(AccueilActivity.this,ConnectionActivity.class);
@@ -123,30 +123,27 @@ public class AccueilActivity extends AppCompatActivity {
                return true;
            }
       });
-
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Pass the event to ActionBarDrawerToggle
-        // If it returns true, then it has handled the app icon touch event
-        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            // If the hamburger icon is pressed, show a toast
-            Toast.makeText(this, "Hamburger icon pressed!", Toast.LENGTH_SHORT).show();
+        int itemId = item.getItemId();
+        if (itemId == R.id.nav_item_creerTache){
+            Intent i = new Intent(AccueilActivity.this, CreationActivity.class);
+            startActivity(i);
             return true;
         }
-        // Handle your other action bar items...
-        int id = item.getItemId();
-
-        // Other items can be handled here if any
-
+        if(actionBarDrawerToggle.onOptionsItemSelected(item)){
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
 
     //inflate un btn menu qui mene a l'activite de creation de tache
+    //do not confuse w drawer_menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.drawer_menu, menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
