@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
+
 public class AccueilActivity extends AppCompatActivity {
     //set viewBinding
     public ActivityAccueuilBinding binding;
@@ -30,6 +31,7 @@ public class AccueilActivity extends AppCompatActivity {
     public ActionBarDrawerToggle actionBarDrawerToggle;
     public DrawerLayout drawerLayout;
     public NavigationView nv;
+
 
 
     private static final int NAV_ITEM_ACTIVITE_ACCUEIL = R.id.nav_item_ActiviteAccueil;

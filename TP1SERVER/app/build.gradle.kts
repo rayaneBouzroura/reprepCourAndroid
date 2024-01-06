@@ -42,6 +42,14 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     //implement drawerLayout
     implementation("androidx.drawerlayout:drawerlayout:1.2.0")
+
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.5.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.5.0")
+    implementation("com.squareup.retrofit2:converter-scalars:2.5.0")
+    //jitpackio DTO classes
+    implementation("com.github.departement-info-cem:KickMyB-Library:31d81e9843")
+
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }
