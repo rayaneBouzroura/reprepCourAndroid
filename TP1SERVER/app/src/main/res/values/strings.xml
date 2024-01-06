@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">TP1GUI</string>
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
+    <string name="activInscrip_EditText_UsernameHint">entrer un nom d\'utilisateur</string>
+    <string name="activInscrip_EditText_PwHint">entrer un mot de passe</string>
+    <string name="activInscrip_EditText_PwConfHint">Confirmer mot de passe</string>
+    <string name="activInscrip_Btn_Inscription">Inscription</string>
+    <string name="Title_InscriptionActivity">Inscription</string>
+    <string name="Title_Inscription">Connexion</string>
+    <string name="activConnec_EditTextUsername_Hint">entrer nom d\'utilisateur</string>
+    <string name="activConnec_EditTextPw_Hint">entre le mot de passe</string>
+    <string name="activConnec_BtnConnecText">Connexion</string>
+    <string name="activConnec_BtnInscriptionText">Inscription</string>
+    <string name="TaskItem_TaskName">Nom de la tâche</string>
+    <string name="AccueilActivity_Title">Accueil</string>
+    <string name="activInscrip_Btn_Connection">Connexion</string>
+    <string name="nav_header_main_placeholder">utilisateur générique</string>
+    <string name="nv_menu_allezActiviteAccueil">Aller à l’activité d’accueil</string>
+    <string name="nv_menu_creerTache">Creer une nouvelle tâche</string>
+    <string name="nav_item_deconnexion">Se déconnecter</string>
+    <string name="err_activiteLayout">Vous êtes déjà à la bonne activité.\n</string>
+    <string name="creationActivity_creerTacheHint">nom de la tâche</string>
+    <string name="activiteCreation_btn_text">Ajouter tâche</string>
+    <string name="activiteConsultation_Btn_UpdateActivite">Mettre à jour l’activité</string>
+</resources>
