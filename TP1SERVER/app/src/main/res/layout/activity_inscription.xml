@@ -7,9 +7,7 @@
     android:orientation="vertical"
     tools:context=".InscriptionActivity"
     android:paddingStart="16dp"
-    android:paddingEnd="16dp"
-    android:layout_gravity="center_vertical"
-    android:gravity="center_vertical">
+    android:paddingEnd="16dp">
 
 <!--    requirements :-->
 <!--    - entrer username-->
@@ -30,6 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/activInscrip_EditText_PwHint"
+        android:inputType="textPassword"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="16dp"
         android:padding="12dp">

@@ -47,8 +47,14 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.5.0")
     implementation("com.squareup.retrofit2:converter-gson:2.5.0")
     implementation("com.squareup.retrofit2:converter-scalars:2.5.0")
+
+    //OkHttp3 login interceptor
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
     //jitpackio DTO classes
     implementation("com.github.departement-info-cem:KickMyB-Library:31d81e9843")
+
+    //special package to fix the guava truc
+    implementation("com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava")
 
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

@@ -23,4 +23,14 @@
     <string name="creationActivity_creerTacheHint">nom de la tâche</string>
     <string name="activiteCreation_btn_text">Ajouter tâche</string>
     <string name="activiteConsultation_Btn_UpdateActivite">Mettre à jour l’activité</string>
+    <string name ="Toast_UsernameEmpty">nom d\'utilisateur vide</string>
+    <string name ="Toast_PasswordEmpty">mot de passe vide</string>
+    <string name="Toast_ConnectionFailed">connection au serveur echoue</string>
+    <string name="Toast_PasswordConfirmationEmpty">Veillez confirmer le mot de passe</string>
+    <string name="Toast_PasswordsDontMatch">le mot de passe et confirmation de mot de passe ne sont pas les memes</string>
+    <string name="vous_etes_deconnecte">Vous etes deconnecte</string>
+    <string name="days">jours</string>
+    <string name="hours">heures</string>
+    <string name="minutes">minutes</string>
+    <string name="seconds">secondes</string>
 </resources>

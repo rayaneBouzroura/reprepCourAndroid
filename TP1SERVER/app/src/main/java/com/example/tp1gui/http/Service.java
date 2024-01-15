@@ -6,6 +6,8 @@ import org.kickmyb.transfer.SigninRequest;
 import org.kickmyb.transfer.SigninResponse;
 import org.kickmyb.transfer.SignupRequest;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -26,7 +28,7 @@ public interface Service {
     Call<Void> addTask(@Body AddTaskRequest request);
 
     @GET("/api/home")
-    Call<HomeItemResponse> getHomeTasks();
+    Call<List<HomeItemResponse>> getHomeTasks();
 
     @GET("/test")
     Call<String> testEndpoint();

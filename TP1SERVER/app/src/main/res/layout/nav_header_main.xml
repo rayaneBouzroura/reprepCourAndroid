@@ -7,9 +7,9 @@
     android:layout_margin="30dp">
 
     <TextView
+        android:id="@+id/tvUsername"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="@string/nav_header_main_placeholder"
         android:gravity="center"/>
 
 </LinearLayout>

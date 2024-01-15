@@ -10,16 +10,28 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tp1gui.databinding.ActivityAccueuilBinding;
+import com.example.tp1gui.http.RetrofitUtil;
+import com.example.tp1gui.http.Service;
+import com.example.tp1gui.singleton.UserManager;
 import com.google.android.material.navigation.NavigationView;
 
+import org.kickmyb.transfer.HomeItemResponse;
+
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class AccueilActivity extends AppCompatActivity {
@@ -34,44 +46,111 @@ public class AccueilActivity extends AppCompatActivity {
 
 
 
+
     private static final int NAV_ITEM_ACTIVITE_ACCUEIL = R.id.nav_item_ActiviteAccueil;
     private static final int NAV_ITEM_CREER_TACHE = R.id.nav_item_creerTache;
     private static final int NAV_ITEM_DECONNEXION = R.id.nav_item_deconnexion;
+    //homeitemresponse list
+    public List<HomeItemResponse> list = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityAccueuilBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setTitle(getString(R.string.AccueilActivity_Title));
-        gestionDrawerBar();
+        final Service service = RetrofitUtil.get(true);
+        gestionDrawerBar(service);
+        list = getHomeItems(service);
         initRecycler();
+        //add delay
         remplirRecycler();
+        test(service);
+
+        //toast with the username
+        Toast.makeText(this, "Hello :" + UserManager.getInstance().getUsername(), Toast.LENGTH_SHORT).show();
 
     }
 
+    //method that takes the service and returns a list of homeitemresponse
+    private List<HomeItemResponse> getHomeItems(Service service) {
+        List<HomeItemResponse> list = new ArrayList<>();
+        //api call to retrieve the list of taches
+        service.getHomeTasks().enqueue(new Callback<List<HomeItemResponse>>() {
+            @Override
+            public void onResponse(Call<List<HomeItemResponse>> call, Response<List<HomeItemResponse>> response) {
+                //if reponse unsuccessful throw error and return
+                if(!response.isSuccessful())
+                {
+                    Toast.makeText(AccueilActivity.this, "error :/", Toast.LENGTH_SHORT).show();
+                }
+                //if response successful throw a toast empty the singleton instance then go to signin activity
+                if(response.isSuccessful()){
+                    //throw a toast
+                    Toast.makeText(AccueilActivity.this, "Taches retrieved", Toast.LENGTH_SHORT).show();
+                    //empty le singleton
+                    //go to signin activity
+                    List<HomeItemResponse> homeItemResponses = response.body();
+                    list.addAll(homeItemResponses);
+                }
+            }
+            @Override
+            public void onFailure(Call<List<HomeItemResponse>> call, Throwable t) {
+                //our code is perfect and fault proof we are never wrong so this will never happen
+            }
+        });
+        return list;
+    }
 
+    private void test(Service service) {
+        binding.btnTestApi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                service.getHomeTasks().enqueue(new Callback<List<HomeItemResponse>>() {
+                    @Override
+                    public void onResponse(Call<List<HomeItemResponse>> call, Response<List<HomeItemResponse>> response) {
+                        //if reponse unsuccessful throw error and return
+                        if(!response.isSuccessful())
+                        {
+                            Toast.makeText(AccueilActivity.this, "error :/", Toast.LENGTH_SHORT).show();
+                        }
+                        //if response successful throw a toast empty the singleton instance then go to signin activity
+                        if(response.isSuccessful()){
+                            //throw a toast
+                            Toast.makeText(AccueilActivity.this, "Taches retrieved", Toast.LENGTH_SHORT).show();
+                            //empty le singleton
+                            //go to signin activity
+                            List<HomeItemResponse> homeItemResponses = response.body();
+                            adapter.list.addAll(homeItemResponses);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<List<HomeItemResponse>> call, Throwable t) {
+                        //our code is perfect and fault proof we are never wrong so this will never happen
+            }
+        }
+
+
+        );
+
+                
+    }});}
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //delay le api call pour test
+        new Handler().postDelayed(this::remplirRecycler , 2000);
+
+    }
 
     private void remplirRecycler() {
-        //creer environs 200 taches
-        ArrayList<Tache> taches = new ArrayList<>();
-        //random obj pour randomiser quelques elements
-        Random r = new Random();
-        for (int i = 0; i < 200; i++) {
-            //creer une tache
-            Tache t = new Tache();
-            //set le titre
-            t.nom = "Tache " + i;
-            //set le pourcentage
-            t.pourcentage = r.nextInt(100);
-            //set la date
-            t.dateLimite = new Date();
-            //set le temps ecoule
-            t.tempEcoule =(long) r.nextInt(1000000000);
-            //ajouter la tache a la liste
-            adapter.list.add(t);
-        }
-        adapter.notifyDataSetChanged();
 
+        //update adapter list
+        adapter.list.addAll(list);
+        //notify adapter
+        adapter.notifyDataSetChanged();
     }
 
     private void initRecycler() {
@@ -86,9 +165,14 @@ public class AccueilActivity extends AppCompatActivity {
     }
 
 
-    private void gestionDrawerBar() {
+    private void gestionDrawerBar(Service service) {
         nv = binding.navigationView;
        drawerLayout = binding.drawerLayout;
+       //mettre le username dans le header
+        View viewHeader = nv.getHeaderView(0);
+        //find by id since databin
+        TextView tvHeader =  viewHeader.findViewById(R.id.tvUsername);
+        tvHeader.setText(UserManager.getInstance().getUsername());
        actionBarDrawerToggle = new ActionBarDrawerToggle(this,
               drawerLayout,
                R.string.nav_open,
@@ -116,8 +200,38 @@ public class AccueilActivity extends AppCompatActivity {
                    startActivity(i);
                }
                else if (item.getItemId() == NAV_ITEM_DECONNEXION) {
-                   Intent i2 = new Intent(AccueilActivity.this,ConnectionActivity.class);
-                   startActivity(i2);
+
+
+                   service.signout().enqueue(new Callback<Void>() {
+                       @Override
+                       public void onResponse(Call<Void> call, Response<Void> response) {
+                           //if reponse unsuccessful throw error and return
+                           if(!response.isSuccessful())
+                           {
+                               try {
+                                   Toast.makeText(AccueilActivity.this, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                               } catch (IOException e) {
+                                   throw new RuntimeException(e);
+                               }
+                           }
+                           //if response successful throw a toast empty the singleton instance then go to signin activity
+                           if(response.isSuccessful()){
+                               //throw a toast
+                               Toast.makeText(AccueilActivity.this, R.string.vous_etes_deconnecte, Toast.LENGTH_SHORT).show();
+                               //empty le singleton
+                               UserManager.getInstance().clearUsername();
+                               //go to signin activity
+                               Intent i2 = new Intent(AccueilActivity.this,ConnectionActivity.class);
+                               startActivity(i2);
+                           }
+                       }
+
+                       @Override
+                       public void onFailure(Call<Void> call, Throwable t) {
+
+                       }
+                   });
+
                }
                else {
                    Toast.makeText(AccueilActivity.this, "item not found", Toast.LENGTH_SHORT).show();

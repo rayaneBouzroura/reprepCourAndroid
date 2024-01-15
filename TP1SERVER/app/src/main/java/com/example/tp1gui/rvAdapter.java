@@ -14,11 +14,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.kickmyb.transfer.HomeItemResponse;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class rvAdapter extends RecyclerView.Adapter<rvAdapter.MyViewHolder>{
-    List<Tache> list;
+    List<HomeItemResponse> list;
 
 // Provide a reference to the views for each data item
 // Complex data items may need more than one view per item, and
@@ -57,13 +60,22 @@ public static class MyViewHolder extends RecyclerView.ViewHolder {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Tache tacheCourante = list.get(position);
-        holder.tvNomTache.setText(tacheCourante.nom);
-        //TODO : la traduire en francais
-        holder.tvDateLimite.setText(tacheCourante.dateLimite.toString());
-        //transformer le temps ecoule en dateTime
-        holder.tvTempEcoule.setText(formatDuration(tacheCourante.tempEcoule));
-        holder.progressBar.setProgress(tacheCourante.pourcentage);
+        HomeItemResponse tacheCourante = list.get(position);
+        holder.tvNomTache.setText(tacheCourante.name);
+        holder.tvDateLimite.setText(tacheCourante.deadline.toString());
+        //afin d'ecrire le temps ecoule pnt doit
+        //recup current time pour avoir le total de temps ecoule (en millisecondes)
+        Date now = new Date();
+        //we take it for granted that deadlineis always after now
+        //TODO ehh maybe not so in case total time span is negative check ici
+        long totalTimeSpan = tacheCourante.deadline.getTime() - now.getTime();
+        //get elapsed time en miliseconds
+        //perte de precision mais on s'en fout
+        long elapsedTimeInMili = (long)(totalTimeSpan * tacheCourante.percentageDone / 100);
+        //call la method
+        String formatedElapsedTime = formatDuration(holder.itemView.getContext(),elapsedTimeInMili);
+        holder.tvTempEcoule.setText(formatedElapsedTime);
+        holder.progressBar.setProgress(tacheCourante.percentageDone);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,10 +87,6 @@ public static class MyViewHolder extends RecyclerView.ViewHolder {
                 //PROBLEM : pourra pas modifier l'avancement then update it dans le RV etant donner qu'on a pas a persistent collection of taches mais plutot des taches statiques
                 //SOLUTION : ask le prof when le time comes
                 //creation des valeur du dico de la tache
-                intent.putExtra("nom",tacheCourante.nom);
-                intent.putExtra("pourcentage",tacheCourante.pourcentage);
-                intent.putExtra("dateLimite",tacheCourante.dateLimite.toString());
-                intent.putExtra("tempEcoule",formatDuration(tacheCourante.tempEcoule));
                 //go to ze new activity du context present
                 holder.itemView.getContext().startActivity(intent);
             }
@@ -91,12 +99,21 @@ public static class MyViewHolder extends RecyclerView.ViewHolder {
     }
     //cette method takes a long (in milliseconds)
     // and returns a string representing the duration in days, hours, minutes and seconds
-    public static String formatDuration(long elapsedTime) {
+
+    /**
+     * returns a string representing the duration in days, hours, minutes and seconds
+     * @param context : context of the activity calling this method pour la localization des string
+     * @param elapsedTime : elapsed time in milliseconds
+     * @return
+     */
+    public static String formatDuration(Context context,long elapsedTime) {
         long elapsedSeconds = elapsedTime / 1000;
         long elapsedMinutes = elapsedSeconds / 60;
         long elapsedHours = elapsedMinutes / 60;
         long elapsedDays = elapsedHours / 24;
-        return (elapsedDays + " days " + elapsedHours % 24  + " hours " + elapsedMinutes % 60 + " minutes " + elapsedSeconds % 60+ " seconds");
-        //return String.format("%d jours %d heurs %d minutes %d seconds", elapsedDays, elapsedHours % 24, elapsedMinutes % 60, elapsedSeconds % 60);
+        return (elapsedDays + " " + context.getString(R.string.days) + " " +
+                elapsedHours % 24 + " " + context.getString(R.string.hours) + " " +
+                elapsedMinutes % 60 + " " + context.getString(R.string.minutes) + " " +
+                elapsedSeconds % 60 + " " + context.getString(R.string.seconds));
     }
 }

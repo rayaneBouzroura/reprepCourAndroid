@@ -2,7 +2,19 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="SignupTest()">
+        <State />
+      </entry>
       <entry key="app">
+        <State />
+      </entry>
+      <entry key="createTacheTest()">
+        <State />
+      </entry>
+      <entry key="retrieveHomeItemResponse()">
+        <State />
+      </entry>
+      <entry key="test_Test()">
         <State />
       </entry>
     </value>
