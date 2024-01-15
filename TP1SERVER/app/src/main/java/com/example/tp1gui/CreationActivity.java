@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +22,11 @@ import com.example.tp1gui.http.Service;
 import com.example.tp1gui.singleton.UserManager;
 import com.google.android.material.navigation.NavigationView;
 
+import org.kickmyb.transfer.AddTaskRequest;
+
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,10 +45,11 @@ public class CreationActivity extends AppCompatActivity {
         binding = ActivityCreationBinding.inflate(getLayoutInflater());
         super.onCreate(savedInstanceState);
         setContentView(binding.getRoot());
-        gestionBouton();
-        gestionDrawerBar();
+        Service service = RetrofitUtil.get(true);
+        gestionBouton(service);
+        gestionDrawerBar(service);
     }
-    private void gestionDrawerBar() {
+    private void gestionDrawerBar(Service service) {
         nv = binding.navigationView;
         drawerLayout = binding.drawerLayout;
         //mettre le username dans le header
@@ -81,7 +87,7 @@ public class CreationActivity extends AppCompatActivity {
                 else if (item.getItemId() == R.id.nav_item_deconnexion) {
 
                     //api call service pour signout
-                    Service service = RetrofitUtil.get(true);
+
                     service.signout().enqueue(new Callback<Void>() {
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response) {
@@ -124,19 +130,74 @@ public class CreationActivity extends AppCompatActivity {
         });
 
     }
-    private void gestionBouton() {
+    private void gestionBouton(Service service) {
         btnAjoutTache = binding.btnAjoutTache;
         btnAjoutTache.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //todo implement creation de tache dans backend
                 //for now we go back a l'activite accueil
+                //retrieve nom de la tache
+                String nomTache = binding.inputNomTache.getText().toString();
+                //if nomTache is empty throw a very menacing toast
+                if(nomTache.isEmpty()){
+                    Toast.makeText(CreationActivity.this, R.string.err_nomTache, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Date deadline = getDateFromDatePicker(binding.datePicker);
+                //if deadline is in the past throw a very menacing toast
+                if(deadline.before(new Date())){
+                    Toast.makeText(CreationActivity.this, R.string.err_deadline, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                //create add task request
+                AddTaskRequest addTaskRequest = new AddTaskRequest();
+                addTaskRequest.name = nomTache;
+                addTaskRequest.deadline = deadline;
+                //api request
+                service.addTask(addTaskRequest).enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        //if reponse unsuccessful throw error and return
+                        if(!response.isSuccessful())
+                        {
+                            try {
+                                Toast.makeText(CreationActivity.this, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                        //if response successful be very happy first and foremost then go via intent to accueil activity
+                        if(response.isSuccessful()){
+                            //throw a toast
+                            Toast.makeText(CreationActivity.this, R.string.tache_ajoutee, Toast.LENGTH_SHORT).show();
+                            //go to accueil activity (and pray la new actv showed up nyehehehhehehehEheh)
+                            Intent i = new Intent(CreationActivity.this,AccueilActivity.class);
+                            startActivity(i);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+
+                    }
+                });
                 //toast
                 Toast.makeText(CreationActivity.this, "hehe", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(CreationActivity.this, AccueilActivity.class);
                 startActivity(i);
             }
         });
+    }
+
+    private Date getDateFromDatePicker(DatePicker datePicker) {
+        int year = datePicker.getYear();
+        int month = datePicker.getMonth();//les mois are 0 indexed
+        int day = datePicker.getDayOfMonth();
+        //create calendar afin d'utiliser le set(j,m,a)
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year,month,day);
+        return calendar.getTime();
     }
 
     //inflate un btn menu qui mene a l'activite de creation de tache

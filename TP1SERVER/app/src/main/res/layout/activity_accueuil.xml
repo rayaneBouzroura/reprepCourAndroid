@@ -19,11 +19,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 >
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="test api call a delete"
-                    android:id="@+id/btnTestApi">
+                
 
                 </Button>
                 <androidx.recyclerview.widget.RecyclerView

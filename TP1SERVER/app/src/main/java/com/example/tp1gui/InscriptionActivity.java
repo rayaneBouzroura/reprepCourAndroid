@@ -33,11 +33,12 @@ public class InscriptionActivity extends AppCompatActivity {
         binding = ActivityInscriptionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setTitle(getString(R.string.Title_InscriptionActivity));
-        gestionBouton();
+        final Service service = RetrofitUtil.get(true);
+        gestionBouton(service);
 
     }
 
-    private void gestionBouton() {
+    private void gestionBouton(Service service) {
 
         //gestion btn inscription
         btnInscription = binding.btnInscription;
@@ -71,8 +72,7 @@ public class InscriptionActivity extends AppCompatActivity {
                 }
                 //create le signin req
 
-                //summon the service local side
-                Service service = RetrofitUtil.get(true);
+
                 //create the signup object
                 SignupRequest signupRequest = new SignupRequest();
                 signupRequest.username = username;
@@ -98,6 +98,7 @@ public class InscriptionActivity extends AppCompatActivity {
                         Toast.makeText(InscriptionActivity.this, "Bonjour " + user, Toast.LENGTH_SHORT).show();
                         //go to accueil
                         Intent intent = new Intent(InscriptionActivity.this, AccueilActivity.class);
+                        startActivity(intent);
 
                     }
 

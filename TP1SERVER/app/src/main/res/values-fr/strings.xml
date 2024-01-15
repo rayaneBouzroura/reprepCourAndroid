@@ -33,4 +33,7 @@
     <string name="hours">heures</string>
     <string name="minutes">minutes</string>
     <string name="seconds">secondes</string>
+    <string name="err_nomTache">INSERER UN NOM DE TACHE VALIDE GRRR 🤬🤬🤬</string>
+    <string name="err_deadline">"ONT PEUT PAS CHANGER LE PASSER "</string>
+    <string name="tache_ajoutee">Tache ajouter correctement</string>
 </resources>
