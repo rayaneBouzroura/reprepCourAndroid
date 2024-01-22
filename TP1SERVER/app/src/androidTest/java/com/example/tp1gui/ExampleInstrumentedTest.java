@@ -13,6 +13,7 @@ import org.kickmyb.transfer.HomeItemResponse;
 import org.kickmyb.transfer.SigninRequest;
 import org.kickmyb.transfer.SigninResponse;
 import org.kickmyb.transfer.SignupRequest;
+import org.kickmyb.transfer.TaskDetailResponse;
 
 import static org.junit.Assert.*;
 
@@ -136,7 +137,40 @@ public class ExampleInstrumentedTest {
         //check if the response is successful
         assertTrue(response3.isSuccessful());
         //we now retrieve the list of tasks
+        HomeItemResponse objToGetMoreDetailsOn = (HomeItemResponse) response3.body().get(0);
         String a = "";
 
         }
+
+
+
+        //test to get detail task from homeitem response list
+    @Test
+    public void retrieveDetailTask() throws Exception {
+
+        Service service = RetrofitUtil.get(true);
+        //create signup request
+        SigninRequest rq = new SigninRequest();
+        rq.username = "test";
+        rq.password = "test";
+        //call the service
+        Call<SigninResponse> call = service.signin(rq);
+        Response<SigninResponse> response = call.execute();
+
+
+        //we now retrieve the list of tasks
+        Call<List<HomeItemResponse>> call3 = service.getHomeTasks();
+        Response<List<HomeItemResponse>> response3 = call3.execute();
+        //we now retrieve the list of tasks
+        String a = "";
+
+        //we now retrieve the task detail
+        Call<TaskDetailResponse> call4 = service.getDetailTask(response3.body().get(0).id);
+        Response<TaskDetailResponse> response4 = call4.execute();
+        //check if the response is successful
+        assertTrue(response4.isSuccessful());
+        //we now retrieve the list of tasks
+        String b = "";
+
+    }
 }

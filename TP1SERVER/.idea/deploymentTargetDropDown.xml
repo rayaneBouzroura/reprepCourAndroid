@@ -11,10 +11,10 @@
       <entry key="createTacheTest()">
         <State />
       </entry>
-      <entry key="retrieveHomeItemResponse()">
+      <entry key="retrieveDetailTask()">
         <State />
       </entry>
-      <entry key="test_Test()">
+      <entry key="retrieveHomeItemResponse()">
         <State />
       </entry>
     </value>

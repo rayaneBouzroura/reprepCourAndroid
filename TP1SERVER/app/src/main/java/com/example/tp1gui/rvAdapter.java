@@ -79,7 +79,8 @@ public static class MyViewHolder extends RecyclerView.ViewHolder {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //recup current tache and send it to activite consultation
+                //recup current tache id and use it for the request
+                Long idTache = tacheCourante.id;
                 Intent intent = new Intent(holder.itemView.getContext(), ConsultationActivity.class);
                 //oft instead of sending the whole object (by implementing some stupid interface to make the object sendable via intent(cringe))
                 //we do the second logical thing and send all the object's data
@@ -88,7 +89,11 @@ public static class MyViewHolder extends RecyclerView.ViewHolder {
                 //SOLUTION : ask le prof when le time comes
                 //creation des valeur du dico de la tache
                 //go to ze new activity du context present
-                holder.itemView.getContext().startActivity(intent);
+                //Toast avec le id de la tache making sure qu'on la recup bien
+                Toast.makeText(holder.itemView.getContext(), "id de la tache : " + idTache, Toast.LENGTH_SHORT).show();
+                //add the id to the intent
+                intent.putExtra("idTache",idTache);
+                //holder.itemView.getContext().startActivity(intent);
             }
         });
     }

@@ -22,6 +22,8 @@ import com.example.tp1gui.http.Service;
 import com.example.tp1gui.singleton.UserManager;
 import com.google.android.material.navigation.NavigationView;
 
+import org.kickmyb.transfer.TaskDetailResponse;
+
 import java.io.IOException;
 
 import retrofit2.Call;
@@ -36,6 +38,7 @@ public class ConsultationActivity extends AppCompatActivity {
     public SeekBar sb;
     public TextView seekBarPercentage;
     public Button btnUpdate;
+    public TaskDetailResponse tacheCourante;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +46,13 @@ public class ConsultationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(binding.getRoot());
         gestionDrawerBar();
+        recupTacheCourante();
         montrerTache();
         gestionSeekBar();
         gestionBouton();
+    }
+
+    private void recupTacheCourante() {
     }
 
     private void gestionBouton() {

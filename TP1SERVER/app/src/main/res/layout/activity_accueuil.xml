@@ -19,9 +19,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 >
-                
+                <TextView
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor= "@color/design_default_color_primary_dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/greetingText"
+                    >
 
-                </Button>
+                </TextView>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

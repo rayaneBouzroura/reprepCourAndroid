@@ -59,16 +59,28 @@ public class AccueilActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setTitle(getString(R.string.AccueilActivity_Title));
         final Service service = RetrofitUtil.get(true);
+        setUpGreetingText(binding.greetingText);
         gestionDrawerBar(service);
         list = getHomeItems(service);
         initRecycler();
         //add delay
         remplirRecycler();
-        test(service);
 
         //toast with the username
         Toast.makeText(this, "Hello :" + UserManager.getInstance().getUsername(), Toast.LENGTH_SHORT).show();
 
+    }
+
+    private void setUpGreetingText(TextView tv) {
+        // array of 10 weird emojis
+        String[] emojis = {"( ͡° ͜ʖ ͡°)", "( ͡~ ͜ʖ ͡°)", "( ͡ʘ ͜ʖ ͡ʘ)", "( ͡o ͜ʖ ͡o)",
+                "( ͡ʘ ͜ʖ ͡ʘ)", "( ͡ಠ ͜ʖ ͡ಠ)", "( ͡ಠ ʖ̯ ͡ಠ)", "( ͡ಠ ͜ʖ ͡ಠ)", "( ͡° ʖ̯ ͡°)",
+                "( ͡ಥ ͜ʖ ͡ಥ)"};
+        //random object
+        java.util.Random random = new java.util.Random();
+        //generate random number between 0 and 9
+        int randomNumber = random.nextInt(10);
+        tv.setText("Hello " + UserManager.getInstance().getUsername() + " " + emojis[randomNumber]);
     }
 
     //method that takes the service and returns a list of homeitemresponse
@@ -98,44 +110,11 @@ public class AccueilActivity extends AppCompatActivity {
                 //our code is perfect and fault proof we are never wrong so this will never happen
             }
         });
+
         return list;
     }
 
-    private void test(Service service) {
-        binding.btnTestApi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                service.getHomeTasks().enqueue(new Callback<List<HomeItemResponse>>() {
-                    @Override
-                    public void onResponse(Call<List<HomeItemResponse>> call, Response<List<HomeItemResponse>> response) {
-                        //if reponse unsuccessful throw error and return
-                        if(!response.isSuccessful())
-                        {
-                            Toast.makeText(AccueilActivity.this, "error :/", Toast.LENGTH_SHORT).show();
-                        }
-                        //if response successful throw a toast empty the singleton instance then go to signin activity
-                        if(response.isSuccessful()){
-                            //throw a toast
-                            Toast.makeText(AccueilActivity.this, "Taches retrieved", Toast.LENGTH_SHORT).show();
-                            //empty le singleton
-                            //go to signin activity
-                            List<HomeItemResponse> homeItemResponses = response.body();
-                            adapter.list.addAll(homeItemResponses);
-                            adapter.notifyDataSetChanged();
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<List<HomeItemResponse>> call, Throwable t) {
-                        //our code is perfect and fault proof we are never wrong so this will never happen
-            }
-        }
-
-
-        );
-
-                
-    }});}
 
     @Override
     protected void onResume() {
