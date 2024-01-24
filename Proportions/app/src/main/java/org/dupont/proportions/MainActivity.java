@@ -1,14 +1,14 @@
-package com.example.miseenpage;
+package org.dupont.proportions;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class miseEnPageC extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_c);
+        setContentView(R.layout.activity_main);
     }
 }
