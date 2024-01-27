@@ -1,4 +1,4 @@
-package com.example.tp1gui.services;
+package com.example.tp1gui;
 
 import android.content.Context;
 import android.renderscript.ScriptGroup;
@@ -26,7 +26,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     //la methode gestionDrawerBar necessite :
     // - un drawerLayout
     // - un actionBarDrawerToggle (init l'objet necessite le contexte de l'appli "this" ainsi
-
+    protected ActionBarDrawerToggle actionBarDrawerToggle;
 
     //abstract methods qui retourne le nav view et le drawer layout
     protected abstract NavigationView getNavView();
@@ -38,8 +38,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         NavigationView  nv = getNavView();
         DrawerLayout drawerLayout = getDrawerLayout();
+        //TODO : set le nom d'utilisateur ici en utilisant le singleton UserManager lors de l'implementation serveur
         //gestion drawer bar
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this ,
+         actionBarDrawerToggle = new ActionBarDrawerToggle(this ,
                 drawerLayout,
                 R.string.nav_open,
                 R.string.nav_close);
@@ -54,5 +55,13 @@ public abstract class BaseActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

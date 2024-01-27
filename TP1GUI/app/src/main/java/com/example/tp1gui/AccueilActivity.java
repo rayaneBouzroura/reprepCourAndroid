@@ -139,7 +139,7 @@ public class AccueilActivity extends AppCompatActivity {
     }
 
 
-    //inflate un btn menu qui mene a l'activite de creation de tache
+    //inflate un btn menu qui mene a l'activite de creation de tache (only present
     //do not confuse w drawer_menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

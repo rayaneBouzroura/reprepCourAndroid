@@ -13,8 +13,8 @@
         android:theme="@style/Theme.TP1GUI"
         tools:targetApi="31">
         <activity
-            android:name=".CreationActivity"
-            android:exported="true">
+            android:name=".testActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,13 +22,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".CreationActivity"
+            android:exported="false">
+
+        </activity>
+        <activity
             android:name=".ConsultationActivity"
             android:exported="false" />
         <activity
             android:name=".AccueilActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".ConnectionActivity"
             android:exported="false" />

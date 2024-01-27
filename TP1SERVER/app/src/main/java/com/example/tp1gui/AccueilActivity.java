@@ -151,6 +151,7 @@ public class AccueilActivity extends AppCompatActivity {
         View viewHeader = nv.getHeaderView(0);
         //find by id since databin
         TextView tvHeader =  viewHeader.findViewById(R.id.tvUsername);
+        //
         tvHeader.setText(UserManager.getInstance().getUsername());
        actionBarDrawerToggle = new ActionBarDrawerToggle(this,
               drawerLayout,
