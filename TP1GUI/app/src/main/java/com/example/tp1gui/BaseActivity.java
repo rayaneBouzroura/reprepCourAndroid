@@ -1,6 +1,7 @@
 package com.example.tp1gui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.renderscript.ScriptGroup;
 import android.view.MenuItem;
 
@@ -58,7 +59,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
+        //gestion du bouton present dans
+        if(item.getItemId() == R.id.menu_item_creerTache){
+            startActivity(new Intent(this,CreationActivity.class));
+        }
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }

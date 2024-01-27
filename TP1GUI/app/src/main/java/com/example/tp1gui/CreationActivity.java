@@ -18,7 +18,7 @@ import com.example.tp1gui.databinding.ActivityCreationBinding;
 import com.google.android.material.navigation.NavigationView;
 
 
-public class CreationActivity extends AppCompatActivity {
+public class CreationActivity extends BaseActivity{
     public ActivityCreationBinding binding;
     public Button btnAjoutTache;
     public ActionBarDrawerToggle actionBarDrawerToggle;
@@ -33,52 +33,46 @@ public class CreationActivity extends AppCompatActivity {
         gestionBouton();
         gestionDrawerBar();
     }
-    private void gestionDrawerBar() {
-        nv = binding.navigationView;
-        drawerLayout = binding.drawerLayout;
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this,
-                drawerLayout,
-                R.string.nav_open,
-                R.string.nav_close);
-        drawerLayout.addDrawerListener((actionBarDrawerToggle));
-        actionBarDrawerToggle.syncState();
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null)
-        {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-        else {
-            Toast.makeText(this, "actionBar is null", Toast.LENGTH_SHORT).show();
-        }
-        nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                //if statements for each item
-                if (item.getItemId() == R.id.nav_item_ActiviteAccueil) {
-                    //move to activite accueil
-                    Intent i = new Intent(CreationActivity.this, AccueilActivity.class);
-                    startActivity(i);
-                }
-                else if (item.getItemId() == R.id.nav_item_creerTache) {
-                    Toast.makeText(CreationActivity.this, R.string.err_activiteLayout, Toast.LENGTH_SHORT).show();
 
-                }
-                else if (item.getItemId() == R.id.nav_item_deconnexion) {
-                    //move to activite connection
-                    Intent i2 = new Intent(CreationActivity.this,ConnectionActivity.class);
-                    startActivity(i2);
-                }
-                else {
-                    //Toast.makeText(ConsultationActivity.this, "item not found", Toast.LENGTH_SHORT).show();
-                }
-                return true;
+        /**
+         * @return
+         */
+        @Override
+        protected NavigationView getNavView() {
+            return binding.navigationView;
+        }
+
+        /**
+         * @return
+         */
+        @Override
+        protected DrawerLayout getDrawerLayout() {
+            return binding.drawerLayout;
+        }
+
+        /**
+         * @param item
+         */
+        @Override
+        protected void gestionBoutonDrawerBar(@NonNull MenuItem item) {
+            if(item.getItemId() == R.id.nav_item_creerTache){
+                //we are deja dans l'activite de creation de tache
+                Toast.makeText(this, R.string.err_activiteLayout, Toast.LENGTH_SHORT).show();
+                //close le drawer
+                binding.drawerLayout.closeDrawers();
             }
+            else if (item.getItemId() == R.id.nav_item_ActiviteAccueil) {
+                //go to main activite
+                startActivity(new Intent(this, AccueilActivity.class));
+            }
+            else if (item.getItemId() == R.id.nav_item_deconnexion) {
+                //go to login
+                startActivity(new Intent(this, ConnectionActivity.class));
+
+            }
+        }
 
 
-
-        });
-
-    }
     private void gestionBouton() {
         btnAjoutTache = binding.btnAjoutTache;
         btnAjoutTache.setOnClickListener(new View.OnClickListener() {
@@ -94,25 +88,7 @@ public class CreationActivity extends AppCompatActivity {
         });
     }
 
-    //inflate un btn menu qui mene a l'activite de creation de tache
-    //do not confuse w drawer_menu
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
 
-    //on click sur le btn menu
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.nav_item_creerTache){
-            //we are deja dans l'activite de creation de tache
-            Toast.makeText(this, R.string.err_activiteLayout, Toast.LENGTH_SHORT).show();
-        }
-        if(actionBarDrawerToggle.onOptionsItemSelected(item)){
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+
+
 }

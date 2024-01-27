@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <!--        share same id as nav_menu since meme fonctionalite-->
     <item
-    android:id="@+id/nav_item_creerTache"
+    android:id="@+id/menu_item_creerTache"
     android:title="@string/nv_menu_creerTache">
     </item>
 
