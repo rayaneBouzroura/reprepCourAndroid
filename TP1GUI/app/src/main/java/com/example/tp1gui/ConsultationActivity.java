@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -18,7 +19,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.tp1gui.databinding.ActivityConsultationBinding;
 import com.google.android.material.navigation.NavigationView;
 
-public class ConsultationActivity extends AppCompatActivity {
+public class ConsultationActivity extends BaseActivity {
      private ActivityConsultationBinding binding;
     public ActionBarDrawerToggle actionBarDrawerToggle;
     public DrawerLayout drawerLayout;
@@ -40,13 +41,12 @@ public class ConsultationActivity extends AppCompatActivity {
 
     private void gestionBouton() {
         btnUpdate = binding.btnUpdate;
-        btnUpdate.setOnClickListener(v -> {
-            //TODO call api pour update la tache when we implement the back end
-            //for now we just go back to activite accueil
-            Intent i = new Intent(ConsultationActivity.this, AccueilActivity.class);
-            startActivity(i);
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ConsultationActivity.this , AccueilActivity.class));
+            }
         });
-
     }
 
     private void gestionSeekBar() {
@@ -113,81 +113,49 @@ public class ConsultationActivity extends AppCompatActivity {
         });
     }
 
-    private void gestionDrawerBar() {
-        nv = binding.navigationView;
-        drawerLayout = binding.drawerLayout;
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this,
-                drawerLayout,
-                R.string.nav_open,
-                R.string.nav_close);
-        drawerLayout.addDrawerListener((actionBarDrawerToggle));
-        actionBarDrawerToggle.syncState();
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null)
-        {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-        else {
-            Toast.makeText(this, "actionBar is null", Toast.LENGTH_SHORT).show();
-        }
-        nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                //if statements for each item
-                if (item.getItemId() == R.id.nav_item_ActiviteAccueil) {
-                    //move to activite accueil
-                    Intent i3 = new Intent(ConsultationActivity.this, AccueilActivity.class);
-                    startActivity(i3);
-                }
-                else if (item.getItemId() == R.id.nav_item_creerTache) {
-                    //move to activite creation
-                    Intent i = new Intent(ConsultationActivity.this, CreationActivity.class);
-                    startActivity(i);
-
-                }
-                else if (item.getItemId() == R.id.nav_item_deconnexion) {
-                    //move to activite connection
-                    Intent i2 = new Intent(ConsultationActivity.this,ConnectionActivity.class);
-                    startActivity(i2);
-                }
-                else {
-                    //Toast.makeText(ConsultationActivity.this, "item not found", Toast.LENGTH_SHORT).show();
-                }
-                return true;
-            }
 
 
 
-        });
 
-    }
+
+
+
+
+    /**
+     * @return
+     */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.nav_item_creerTache){
-            Intent i = new Intent(ConsultationActivity.this, CreationActivity.class);
-            startActivity(i);
-            return true;
-        }
-        if(actionBarDrawerToggle.onOptionsItemSelected(item)){
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    protected NavigationView getNavView() {
+        return binding.navigationView;
     }
 
-
-
-
-    //inflate un btn menu qui mene a l'activite de creation de tache
-    //do not confuse w drawer_menu
+    /**
+     * @return
+     */
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
+    protected DrawerLayout getDrawerLayout() {
+        return binding.drawerLayout;
     }
 
-
-
-
+    /**
+     * @param item
+     */
+    @Override
+    protected void gestionBoutonDrawerBar(@NonNull MenuItem item) {
+     if (item.getItemId() == R.id.nav_item_ActiviteAccueil) {
+                //go to main activite
+                startActivity(new Intent(this, AccueilActivity.class));
+          }
+          else if (item.getItemId() == R.id.nav_item_creerTache) {
+                //go to creer tache
+                Intent i = new Intent(this, CreationActivity.class);
+                startActivity(i);
+          }
+          else if (item.getItemId() == R.id.nav_item_deconnexion) {
+                //go to login
+                Intent i = new Intent(this, ConnectionActivity.class);
+                startActivity(i);
+          }
+    }
 }
 
