@@ -21,26 +21,24 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
-public class AccueilActivity extends AppCompatActivity {
+public class AccueilActivity extends BaseActivity {
     //set viewBinding
     public ActivityAccueuilBinding binding;
     public RecyclerView rv;
     public rvAdapter adapter;
 
-    public ActionBarDrawerToggle actionBarDrawerToggle;
+    //public ActionBarDrawerToggle actionBarDrawerToggle;
     public DrawerLayout drawerLayout;
     public NavigationView nv;
 
 
-    private static final int NAV_ITEM_ACTIVITE_ACCUEIL = R.id.nav_item_ActiviteAccueil;
-    private static final int NAV_ITEM_CREER_TACHE = R.id.nav_item_creerTache;
-    private static final int NAV_ITEM_DECONNEXION = R.id.nav_item_deconnexion;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityAccueuilBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setTitle(getString(R.string.AccueilActivity_Title));
+        //cette method est dans BaseActivity
         gestionDrawerBar();
         initRecycler();
         remplirRecycler();
@@ -84,59 +82,47 @@ public class AccueilActivity extends AppCompatActivity {
     }
 
 
-    private void gestionDrawerBar() {
-        nv = binding.navigationView;
-       drawerLayout = binding.drawerLayout;
-       actionBarDrawerToggle = new ActionBarDrawerToggle(this,
-              drawerLayout,
-               R.string.nav_open,
-               R.string.nav_close);
-       drawerLayout.addDrawerListener((actionBarDrawerToggle));
-       actionBarDrawerToggle.syncState();
-       ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null)
-        {
-               actionBar.setDisplayHomeAsUpEnabled(true);
-          }
-      else {
-            Toast.makeText(this, "actionBar is null", Toast.LENGTH_SHORT).show();
-        }
-        nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-             //if statements for each item
-               if (item.getItemId() == NAV_ITEM_ACTIVITE_ACCUEIL) {
-                  //rien a faire
-                   Toast.makeText(AccueilActivity.this, R.string.err_activiteLayout, Toast.LENGTH_SHORT).show();
-              }
-              else if (item.getItemId() == NAV_ITEM_CREER_TACHE) {
-                   Intent i = new Intent(AccueilActivity.this, CreationActivity.class);
-                   startActivity(i);
-               }
-               else if (item.getItemId() == NAV_ITEM_DECONNEXION) {
-                   Intent i2 = new Intent(AccueilActivity.this,ConnectionActivity.class);
-                   startActivity(i2);
-               }
-               else {
-                   Toast.makeText(AccueilActivity.this, "item not found", Toast.LENGTH_SHORT).show();
-               }
-               return true;
-           }
-      });
-    }
+    /**
+     * @return
+     */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.nav_item_creerTache){
+    protected NavigationView getNavView() {
+        return binding.navigationView;
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    protected DrawerLayout getDrawerLayout() {
+        return binding.drawerLayout;
+
+    }
+
+    /**
+     * @param item
+     */
+    @Override
+    protected void gestionBoutonDrawerBar(@NonNull MenuItem item) {
+     //if statements for each item
+        if (item.getItemId() == R.id.nav_item_ActiviteAccueil) {
+            //close the drawer
+            binding.drawerLayout.closeDrawers();
+            Toast.makeText(AccueilActivity.this, R.string.err_activiteLayout, Toast.LENGTH_SHORT).show();
+        }
+        else if (item.getItemId() == R.id.nav_item_creerTache) {
+            //go to creer tache
             Intent i = new Intent(AccueilActivity.this, CreationActivity.class);
             startActivity(i);
-            return true;
         }
-        if(actionBarDrawerToggle.onOptionsItemSelected(item)){
-            return true;
+        else if (item.getItemId() == R.id.nav_item_deconnexion) {
+            //go to login
+            Intent i = new Intent(AccueilActivity.this, ConnectionActivity.class);
+            startActivity(i);
         }
-        return super.onOptionsItemSelected(item);
+
     }
+
 
 
     //inflate un btn menu qui mene a l'activite de creation de tache (only present
