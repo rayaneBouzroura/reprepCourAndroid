@@ -75,11 +75,7 @@ public class ConsultationActivity extends BaseActivity {
     private void montrerTache() {
         //recuperer donner tache de l'intent et les showcase dans les textview
         Intent i = getIntent();
-        //les data present dans le intent sont :
-//        intent.putExtra("nom",tacheCourante.nom);
-//        intent.putExtra("pourcentage",tacheCourante.pourcentage);
-//        intent.putExtra("dateLimite",tacheCourante.dateLimite);
-//        intent.putExtra("tempEcoule",tacheCourante.tempEcoule);
+
         //recup les data et les afficher
         String nom = i.getStringExtra("nom");
         int pourcentage = i.getIntExtra("pourcentage",0);

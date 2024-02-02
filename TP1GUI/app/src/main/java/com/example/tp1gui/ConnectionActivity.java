@@ -45,7 +45,7 @@ public class ConnectionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //create intent to go to inscription
                 Intent intent = new Intent(ConnectionActivity.this, InscriptionActivity.class);
-                startActivity(intent);
+                startActivity(inte
             }
         });
 
