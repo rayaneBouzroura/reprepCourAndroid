@@ -15,52 +15,71 @@
 <!--    - entrer password-->
 <!--    - bouton connection-->
 <!--    - bouton inscription-->
-    <EditText
-        android:id="@+id/nomUtilisateurConnection"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/activConnec_EditTextUsername_Hint"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="16dp"
-        android:padding="12dp">
-    </EditText>
-    <EditText
-        android:id="@+id/motDePasseConnection"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/activConnec_EditTextPw_Hint"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="16dp"
-        android:padding="12dp">
-    </EditText>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal"
-        >
-        <Button
-            android:id="@+id/btnInscription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/activInscrip_Btn_Inscription"
-            android:layout_marginBottom="32dp"
-            android:layout_marginHorizontal="30dp"
-            android:padding="12dp">
-        </Button>
+        android:layout_height="300dp"
+        android:layout_gravity="center">
 
-        <Button
-            android:id="@+id/btnConnection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:layout_marginHorizontal="30dp"
-            android:padding="12dp"
-            android:text="@string/activInscrip_Btn_Connection">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="5dp">
 
-        </Button>
+            <EditText
+                android:id="@+id/nomUtilisateurConnection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="16dp"
+                android:hint="@string/activConnec_EditTextUsername_Hint"
+                android:padding="12dp"></EditText>
+
+            <EditText
+                android:id="@+id/motDePasseConnection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="16dp"
+                android:hint="@string/activConnec_EditTextPw_Hint"
+                android:inputType="textPassword"
+                android:padding="12dp"></EditText>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnInscription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginBottom="32dp"
+                    android:padding="12dp"
+                    android:text="@string/activInscrip_Btn_Inscription"></Button>
+
+                <Button
+                    android:id="@+id/btnConnection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginBottom="32dp"
+                    android:padding="12dp"
+                    android:text="@string/activInscrip_Btn_Connection">
+
+                </Button>
 
 
-    </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
 
 </LinearLayout>

@@ -29,9 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private void gestionDrawerBar() {
         NavigationView nv = binding.navigationView;
         DrawerLayout drawerLayout = binding.drawerLayout;
-        //creation de l'objet ActionBarDrawerToggle
-        //les deux string open and close sont inclus pour les screen readers as une
-        //option d'accessibilite
+        //UNCOMMENT FOR THE HAMBURGER
         abdt = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
 
         //syncstate (sync l'etat du drawer bar avec le drawer layout)
@@ -70,4 +68,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
