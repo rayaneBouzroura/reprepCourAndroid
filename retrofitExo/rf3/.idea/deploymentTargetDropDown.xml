@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="deploymentTargetDropDown">
+    <value>
+      <entry key="app">
+        <State />
+      </entry>
+      <entry key="test_Complex()">
+        <State />
+      </entry>
+      <entry key="test_ComplexList()">
+        <State />
+      </entry>
+      <entry key="test_LongList()">
+        <State />
+      </entry>
+      <entry key="test_Test()">
+        <State />
+      </entry>
+    </value>
+  </component>
+</project>
